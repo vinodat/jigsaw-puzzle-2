@@ -1,11 +1,15 @@
 package com.yqg.puzzle;
 
 import android.app.Activity;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.TransitionDrawable;
 import android.os.Bundle;
 import android.view.Display;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.ViewGroup.LayoutParams;
@@ -24,8 +28,15 @@ public class JigdrawPuzzleMain extends Activity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
         setContentView(R.layout.main);
-        
-        Display display = getWindowManager().getDefaultDisplay(); 
+        Resources res = getResources();
+        TransitionDrawable transition = (TransitionDrawable) res.getDrawable(R.drawable.transtion);
+        ImageView image = new ImageView(this);
+        image.setImageDrawable(transition);
+        transition.startTransition(1000);
+        LinearLayout layout = (LinearLayout) findViewById(R.id.imageslayout);
+        layout.addView(image);
+        ShapeDrawable a;
+        /*Display display = getWindowManager().getDefaultDisplay(); 
         int dwidth = display.getWidth();
         int dheight = display.getHeight();
         
@@ -51,7 +62,7 @@ public class JigdrawPuzzleMain extends Activity {
         	}
         	layout.addView(llayout);
         	llayout = null;
-        }
+        }*/
     }
     
     

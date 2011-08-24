@@ -1,5 +1,7 @@
 package com.yqg.puzzle;
 
+import com.yqg.puzzle.view.TileView;
+
 import android.app.Activity;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -27,42 +29,27 @@ public class JigdrawPuzzleMain extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
-        setContentView(R.layout.main);
+       /* setContentView(R.layout.main);
         Resources res = getResources();
         TransitionDrawable transition = (TransitionDrawable) res.getDrawable(R.drawable.transtion);
         ImageView image = new ImageView(this);
         image.setImageDrawable(transition);
         transition.startTransition(1000);
         LinearLayout layout = (LinearLayout) findViewById(R.id.imageslayout);
-        layout.addView(image);
-        ShapeDrawable a;
-        /*Display display = getWindowManager().getDefaultDisplay(); 
+        layout.addView(image);*/
+        
+        Display display = getWindowManager().getDefaultDisplay(); 
         int dwidth = display.getWidth();
         int dheight = display.getHeight();
         
         Drawable dbmp = getResources().getDrawable(R.drawable.test);
         Bitmap bitmap = ((BitmapDrawable)dbmp).getBitmap();
-        int width = bitmap.getWidth();
-        int height = bitmap.getHeight();
         
-        int stepwidth = width/3;
-        int stepheight = height/3;
-        LinearLayout layout = (LinearLayout) findViewById(R.id.imageslayout);
-        for(int i = 0;i < 3;i ++){
-        	LinearLayout llayout = new LinearLayout(this);
-        	llayout.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, dheight/3));
-        	llayout.setOrientation(LinearLayout.HORIZONTAL);
-        	for(int j = 0;j< 3;j++){
-        		Bitmap bp = Bitmap.createBitmap(bitmap, j*stepwidth, i*stepheight, stepwidth, stepheight);
-        		ImageView iv = new ImageView(this);
-        		iv.setLayoutParams(new LayoutParams(dwidth/3, dheight/3));
-        		iv.setScaleType(ScaleType.CENTER_INSIDE);
-        		iv.setImageBitmap(bp);
-        		llayout.addView(iv);
-        	}
-        	layout.addView(llayout);
-        	llayout = null;
-        }*/
+        TileView tv = new TileView(this);
+        tv.init(2, dwidth, dheight, bitmap);
+        
+        setContentView(tv);
+        
     }
     
     

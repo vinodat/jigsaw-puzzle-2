@@ -4,7 +4,9 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     >
-
+	<com.yqg.puzzle.view.PuzzleView android:layout_width="fill_parent" android:layout_height="fill_parent" android:id="@+id/puzzle_view">
+	</com.yqg.puzzle.view.PuzzleView>
    
-     <LinearLayout android:layout_width="fill_parent" android:layout_height="fill_parent" android:id="@+id/imageslayout" android:orientation="vertical"/>
+    <LinearLayout android:layout_width="fill_parent" android:layout_height="fill_parent" android:id="@+id/imageslayout" 
+     android:orientation="vertical"/>
 </LinearLayout>

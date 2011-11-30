@@ -30,8 +30,8 @@ public class JigdrawPuzzleMain extends Activity {
         Bitmap bitmap = ((BitmapDrawable)dbmp).getBitmap();
         
         TileView tv = new TileView(this);
-        if(!tv.init(1, dwidth, dheight, bitmap)){//if init fail.go to choose panel.
-        	//TODO process
+        if(!tv.init(1, dwidth, dheight, bitmap)){//init fail.
+        	//TODO process;go to choose panel.
         }else{//init suc,show
         	setContentView(R.layout.puzzleview);
             LinearLayout puzzleLayout = (LinearLayout) findViewById(R.id.puzzle_view);

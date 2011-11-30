@@ -1,5 +1,7 @@
 package com.yqg.puzzle.view;
 
+import java.util.ArrayList;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -7,7 +9,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.view.MotionEvent;
-import android.view.View;
+import android.view.animation.TranslateAnimation;
 import android.widget.RelativeLayout;
 
 /**
@@ -29,10 +31,9 @@ public class TileView extends RelativeLayout {
 	private int mTileWidth = 0;
 	private int mTileHeight = 0;
 	protected TileModel[][] mTileArray = null;
-	private Bitmap[] mBitmapArray = null;
 	private TileModel mEmptyTile = null;
+	private ArrayList<TileModel> needMoveTiles = new ArrayList<TileModel>();
 
-	private Paint mPaint = new Paint();
 	private Bitmap mEmptyBitmap;
 
 	public TileView(Context context) {
@@ -79,7 +80,6 @@ public class TileView extends RelativeLayout {
 			break;
 		}
 
-		mBitmapArray = new Bitmap[mXTileCount * mYTileCount];
 		mTileArray = new TileModel[mYTileCount][mXTileCount];
 
 	}
@@ -127,6 +127,7 @@ public class TileView extends RelativeLayout {
 							srcBitmap, splitWidth * j, splitHeight * i,
 							splitWidth, splitHeight);
 					tileModel.setmBitmap(splitBitmap);
+					mEmptyTile = tileModel;
 					this.addView(tileModel);
 				} else {
 					TileModel tileModel = new TileModel(getContext());
@@ -168,11 +169,10 @@ public class TileView extends RelativeLayout {
 
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
-		float x = event.getX();
-		float y = event.getY();
-
 		switch (event.getAction()) {
 		case MotionEvent.ACTION_UP:
+			float x = event.getX();
+			float y = event.getY();
 			moveTile(x, y);
 			break;
 
@@ -191,9 +191,12 @@ public class TileView extends RelativeLayout {
 		int xindex = x.getmXIndex();
 		int yindex = x.getmYIndex();
 		
+		x.setmOldArea(r);
 		x.setmYIndex(y.getmYIndex());
 		x.setmXIndex(y.getmXIndex());
 		x.setmAreaRect(y.getmAreaRect());
+		
+		y.setmOldArea(y.getmAreaRect());
 		y.setmYIndex(yindex);
 		y.setmXIndex(xindex);
 		y.setmAreaRect(r);
@@ -232,11 +235,13 @@ public class TileView extends RelativeLayout {
 				if (yIndex > tileModel.getmYIndex()) {
 					for (int k = yIndex-1; k >= tileModel.getmYIndex(); k--) {
 						TileModel tileModel2 = getTile(xIndex,k);
+						needMoveTiles.add(tileModel2);
 						changeInfo(tileModel2,mEmptyTile);
 					}
 				} else if (yIndex < tileModel.getmYIndex()) {
 					for (int k = yIndex+1; k <= tileModel.getmYIndex(); k++) {
 						TileModel tileModel2 = getTile(xIndex,k);
+						needMoveTiles.add(tileModel2);
 						changeInfo(tileModel2,mEmptyTile);
 					}
 				}
@@ -247,15 +252,26 @@ public class TileView extends RelativeLayout {
 				if(xIndex > tileModel.getmXIndex()){
 					for(int k = xIndex-1;k >= tileModel.getmXIndex();k--){
 						TileModel tTileModel = getTile(k,yIndex);
+						needMoveTiles.add(tTileModel);
 						changeInfo(tTileModel,mEmptyTile);
 					}
 				}else if(xIndex < tileModel.getmXIndex()){
 					for(int k = xIndex+1;k <= tileModel.getmXIndex();k++){
 						TileModel tTileModel = getTile(k,yIndex);
+						needMoveTiles.add(tTileModel);
 						changeInfo(tTileModel,mEmptyTile);
 					}
 				}
 			}
 		}
+		
+		for(int i = 0;i < needMoveTiles.size();i++){
+			TranslateAnimation transAni = new TranslateAnimation(getContext(), null);
+			//transAni.
+			transAni.setDuration(1000);
+			needMoveTiles.get(i).invalidate();
+		}
+		mEmptyTile.invalidate();
+		needMoveTiles.clear();
 	}
 }

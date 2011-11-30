@@ -21,6 +21,15 @@ public class TileModel extends View{
 	private int mBitmapIndex = -1;
 	private Bitmap mBitmap = null;
 	private Rect mAreaRect = new Rect(0,0,0,0);
+	private Rect mOldArea = new Rect();
+	
+	public Rect getmOldArea() {
+		return mOldArea;
+	}
+	
+	public void setmOldArea(Rect mOldArea) {
+		this.mOldArea = mOldArea;
+	}
 	
 	public Bitmap getmBitmap() {
 		return mBitmap;

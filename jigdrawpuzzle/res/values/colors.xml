@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<color name="transparent">#00000000</color>
+	<color name="white">#ffffffff</color>
+	<color name="black">#ff000000</color>
+	<color name="gray">#ff666666</color>
+	<color name="bk_info_panel">#99000000</color>
+	<color name="bk_gallery_scaleleveltime">#66000000</color>
+	<color name="textcolor_trim_range">#fff7db54</color>
+	<color name="textcolor_audiotrack_startpos">#ff70de4b</color>
+	<color name="textcolor_transition_time">#fff7db54</color>
+	<color name="textcolor_content_focus">#fff7db54</color>
+	<color name="textcolor_bgmusic_duration">#ff8bfc61</color>
+	<color name="textcolor_nobgmusic_duration">#ffacafac</color>
+	<color name="textcolor_help_title">#ff04ede7</color>
+	<color name="color_gallerydelete_mask">#66fd0101</color>
+	<color name="color_text_bg">#FFAAFF00</color>
+	
+	<color name="color_text_artist">#ff00CED1</color>
+	<color name="textcolor_project_text">#ffc8c8c8</color>
+	
+	
+	<drawable name="bk_button">#ff262626</drawable>
+	<drawable name="red">#7f00</drawable>
+	<drawable name="blue">#770000ff</drawable>
+	<drawable name="green">#7700ff00</drawable>
+	<drawable name="yellow">#77ffff00</drawable>
+	<drawable name="media_browser_bottom_line">#ff61605d</drawable>
+	<drawable name="gray">#ff666666</drawable>
+	<drawable name="black">#FF000000</drawable>
+	<drawable name="white">#FFFFFFFF</drawable>
+	<drawable name="screen_background_black">#ff000000</drawable>
+	<drawable name="translucent_background">#e0000000</drawable>
+	<drawable name="transparent_background">#00000000</drawable>
+	
+	<color name="color_selectmedia_bk">#ff464646</color>
+	
+	
+	
+	<color name="LG_GRAY">#333333</color>
+    
+</resources>

@@ -2,4 +2,9 @@
 <resources>
     <string name="hello">Hello World, JigdrawPuzzleMain!</string>
     <string name="app_name">JigdrawPuzzle</string>
+    <string name="str_time_consume">%d S</string>
+    
+        
+    <string name="str_pause">pause</string>
+    <string name="str_share">share</string>
 </resources>

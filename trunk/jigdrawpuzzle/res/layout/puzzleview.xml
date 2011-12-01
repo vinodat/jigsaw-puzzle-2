@@ -4,17 +4,34 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" >
-
+
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="80px"
-        android:background="#AAFF00" >
+        android:background="@color/color_text_bg"
+        android:gravity="center" >
 
-        <TextView
-            android:layout_width="fill_parent"
+        <Button
+            android:id="@+id/btn_pause"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=" >>>>>>>>>>>>>> 10 s"
+            android:text="@string/str_pause" />
+
+        <TextView
+            android:id="@+id/txt_view_timer"
+            android:layout_width="386dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.41"
+            android:gravity="center"
+            android:text="0 S"
             android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/str_share" />
+
     </LinearLayout>
 
 </LinearLayout>

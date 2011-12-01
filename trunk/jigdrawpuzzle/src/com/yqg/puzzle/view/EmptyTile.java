@@ -3,6 +3,7 @@ package com.yqg.puzzle.view;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 
 public class EmptyTile extends TileModel {
@@ -20,6 +21,7 @@ public class EmptyTile extends TileModel {
 	
 	@Override
 	protected void onDraw(Canvas canvas) {
+		canvas.drawColor(Color.WHITE);
 		super.onDraw(canvas);
 		if(getmBitmapIndex() == 0){
 			Paint tp = new Paint();

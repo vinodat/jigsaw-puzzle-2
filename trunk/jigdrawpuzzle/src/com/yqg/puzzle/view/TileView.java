@@ -2,6 +2,8 @@ package com.yqg.puzzle.view;
 
 import java.util.ArrayList;
 
+import com.yqg.puzzle.utils.UtilFuncs;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -21,6 +23,7 @@ import android.widget.RelativeLayout;
  * 
  */
 public class TileView extends RelativeLayout {
+	private static final String TAG = "TileView";
 	private static final int SPLIT_LINE_WIDTH = 2;
 	private int mLevel = -1;
 	private int mScreenWidth = 0;
@@ -35,6 +38,8 @@ public class TileView extends RelativeLayout {
 	private ArrayList<TileModel> needMoveTiles = new ArrayList<TileModel>();
 
 	private Bitmap mEmptyBitmap;
+	
+	private PuzzleCallBack puzzleCallBack;
 
 	public TileView(Context context) {
 		super(context);
@@ -96,7 +101,7 @@ public class TileView extends RelativeLayout {
 		}
 		int splitWidth = tWidth / mXTileCount;
 		int splitHeight = tHeight / mYTileCount;
-		
+		//init tiles
 		for (int i = 0; i < mYTileCount; i++) {
 			for (int j = 0; j < mXTileCount; j++) {
 				int childBmpIndex = i * mYTileCount + j;
@@ -164,7 +169,6 @@ public class TileView extends RelativeLayout {
 					* mTileWidth + (i) * SPLIT_LINE_WIDTH, mScreenHeight, p);
 		}
 
-		canvas.drawColor(Color.WHITE);
 	}
 
 	@Override
@@ -201,7 +205,12 @@ public class TileView extends RelativeLayout {
 		y.setmXIndex(xindex);
 		y.setmAreaRect(r);
 	}
-	
+	/**
+	 * find tile with xindex\yindex
+	 * @param x
+	 * @param y
+	 * @return
+	 */
 	private TileModel getTile(int x,int y){
 		for(int i = 0;i<mYTileCount;i++){
 			for(int j= 0;j < mXTileCount;j++){
@@ -225,9 +234,23 @@ public class TileView extends RelativeLayout {
 		}
 		return null;
 	}
+	//check does the game is over.
+	private boolean isGameOver(){
+		for (int i = 0; i < mYTileCount; i++) {
+			for (int j = 0; j < mXTileCount; j++) {
+				TileModel tileModel = mTileArray[i][j];
+				if (tileModel != null
+						&& (tileModel.getmXIndex() != j || tileModel.getmYIndex() != i)) {
+					return false;
+				}
+			}
+		}
+		return true;
+	}
 	
 	private void moveTile(float x, float y) {
 		TileModel tileModel = getClickedTile(x,y);
+		//get need move tiles
 		if (mEmptyTile != null && tileModel != null) {
 			if (mEmptyTile.getmXIndex() == tileModel.getmXIndex()) {
 				int yIndex = mEmptyTile.getmYIndex();
@@ -264,14 +287,31 @@ public class TileView extends RelativeLayout {
 				}
 			}
 		}
-		
+		//move tiles
 		for(int i = 0;i < needMoveTiles.size();i++){
-			TranslateAnimation transAni = new TranslateAnimation(getContext(), null);
-			//transAni.
-			transAni.setDuration(1000);
-			needMoveTiles.get(i).invalidate();
+			TileModel tm = needMoveTiles.get(i);
+			Rect oldrect = tm.getmOldArea();
+			Rect areaRect = tm.getmAreaRect();
+			TranslateAnimation transAni = new TranslateAnimation(oldrect.left - areaRect.left,0,oldrect.top - areaRect.top,0.0f);
+			transAni.setDuration(400);
+			tm.startAnimation(transAni);
 		}
-		mEmptyTile.invalidate();
+		if(isGameOver() && puzzleCallBack != null){
+			UtilFuncs.logE(TAG,">>>>>>>>>>>>>>>>>>> game over!");
+			puzzleCallBack.gameOverCallBack();
+		}
 		needMoveTiles.clear();
+	}
+	
+	public interface PuzzleCallBack{
+		void gameOverCallBack();
+	}
+
+	public PuzzleCallBack getPuzzleCallBack() {
+		return puzzleCallBack;
+	}
+
+	public void setPuzzleCallBack(PuzzleCallBack puzzleCallBack) {
+		this.puzzleCallBack = puzzleCallBack;
 	}
 }

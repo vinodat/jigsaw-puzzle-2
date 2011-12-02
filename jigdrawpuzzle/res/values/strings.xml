@@ -12,4 +12,14 @@
     <string name="str_level_low">low</string>
     <string name="str_level_medium">medium</string>
     <string name="str_level_high">high</string>
+    
+    <!-- menu string start -->
+    <string name="str_menu_main_choose">Choose Image</string>
+    <string name="str_menu_main_check_img">Origin Image</string>
+    <string name="str_menu_main_setting">Setting</string>
+    <string name="str_menu_main_setting_levelset">Level Setting</string>
+    <string name="str_menu_save">Archive</string>
+    <string name="str_menu_main_setting_audioset">Audio Setting</string>
+    <!-- menu string end -->
+    <string name="str_origin_image_show">Origin Image</string>
 </resources>

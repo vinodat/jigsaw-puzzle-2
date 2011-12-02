@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" android:background="@color/LG_GRAY">
+
+    <ImageView android:id="@+id/origin_image_view" android:layout_width="fill_parent" android:layout_height="fill_parent"/>
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="14dp"
+        android:background="@color/white"
+        android:text="@string/str_origin_image_show"
+        android:textColor="@color/bk_gallery_scaleleveltime" />
+
+</RelativeLayout>

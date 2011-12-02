@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/menu_choose"
+        android:title="@string/str_menu_main_choose"
+        android:titleCondensed="@string/str_menu_main_choose"></item>
+
+    <item
+        android:id="@+id/menu_check_image"
+        android:title="@string/str_menu_main_check_img"
+        android:titleCondensed="@string/str_menu_main_check_img"></item>
+
+    <item
+        android:id="@+id/menu_setting"
+        android:title="@string/str_menu_main_setting"
+        android:titleCondensed="@string/str_menu_main_setting">
+		<menu >
+
+            <item
+                android:id="@+id/menu_setting_levelsetting"
+                android:title="@string/str_menu_main_setting_levelset"
+                android:titleCondensed="@string/str_menu_main_setting_levelset"/>
+
+            <item
+                android:id="@+id/menu_setting_oudiosetting"
+                android:title="@string/str_menu_main_setting_audioset"
+                android:titleCondensed="@string/str_menu_main_setting_audioset"/>
+        </menu></item>
+
+    <item
+        android:id="@+id/menu_save"
+        android:title="@string/str_menu_save"
+        android:titleCondensed="@string/str_menu_save"></item>
+
+</menu>

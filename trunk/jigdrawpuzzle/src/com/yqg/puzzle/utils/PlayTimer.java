@@ -12,11 +12,17 @@ public class PlayTimer {
 	private static Timer timer;
 	private TimerCallBack callback;
 	private int ecliptSeconds = 0;
+	private TimerTask mTask = null;
 	
 	public void startTimer(){
-		if(timer == null)
+		if(timer == null){
 			timer = new Timer();
-		TimerTask task = new TimerTask() {
+		}
+		if(mTask != null){
+			mTask.cancel();
+		}
+		
+		mTask = new TimerTask() {
 			@Override
 			public void run() {
 				ecliptSeconds++;
@@ -25,7 +31,10 @@ public class PlayTimer {
 				}
 			}
 		};
-		timer.schedule(task, 0, 1000);
+		
+		
+		timer.purge();
+		timer.schedule(mTask, 0, 1000);
 	}
 	
 	public void pauseTimer(){

@@ -25,7 +25,7 @@ public class EmptyTile extends TileModel {
 		super.onDraw(canvas);
 		if(getmBitmapIndex() == 0){
 			Paint tp = new Paint();
-			tp.setAlpha(155);
+			tp.setAlpha(200);
 			canvas.drawBitmap(mEmptyBitmap, null, getmAreaRect(), tp);
 		}
 	}

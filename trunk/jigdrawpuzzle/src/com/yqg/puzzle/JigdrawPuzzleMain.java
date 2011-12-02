@@ -5,10 +5,12 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.JetPlayer;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.Display;
+import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
@@ -16,7 +18,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.yqg.puzzle.utils.PlayTimer;
+import com.yqg.puzzle.utils.UtilFuncs;
 import com.yqg.puzzle.utils.PlayTimer.TimerCallBack;
+import com.yqg.puzzle.view.PuzzleView;
 import com.yqg.puzzle.view.TileView;
 import com.yqg.puzzle.view.TileView.PuzzleCallBack;
 
@@ -34,7 +38,9 @@ public class JigdrawPuzzleMain extends Activity {
 			switch(msg.what){
 			case TIMER_MESSAGE:
 				CharSequence time = msg.getData().getCharSequence(PLAY_TIME);
-				mTxtView.setText(time+" S");
+				String timeConsume = getString(R.string.str_time_consume);
+				String strTime = String.format(timeConsume, time);
+				mTxtView.setText(strTime);
 				break;
 			default:break;
 			}
@@ -52,7 +58,7 @@ public class JigdrawPuzzleMain extends Activity {
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
         timer.setCallback(timerCallback);
         
-        startJetPlayer();
+        prepareJetPlayer();
         
         Display display = getWindowManager().getDefaultDisplay(); 
         int dwidth = display.getWidth();
@@ -67,7 +73,7 @@ public class JigdrawPuzzleMain extends Activity {
         Drawable dbmp = getResources().getDrawable(R.drawable.test);
         Bitmap bitmap = ((BitmapDrawable)dbmp).getBitmap();
         
-        TileView tv = new TileView(this);
+        PuzzleView tv = new PuzzleView(this);
         tv.setPuzzleCallBack(puzzleCallback);
         int level = 1;
         if(!tv.init(level, dwidth, dheight - bannerHeight, bitmap)){//init fail.
@@ -78,7 +84,49 @@ public class JigdrawPuzzleMain extends Activity {
             mTxtView = (TextView) puzzleLayout.findViewById(R.id.txt_view_timer);
             puzzleLayout.addView(tv);
         }
+        
+        initView(level);
+        
+        //random disrupt.
+        tv.randomDisrupt();
     }
+    
+	/**
+	 * init the view .
+	 */
+	private void initView(int level){
+		TextView tv = (TextView) findViewById(R.id.textView_level);
+		String strLevel = getString(R.string.str_level);
+		//StringBuilder sb = new StringBuilder();
+		   // Send all output to the Appendable object sb
+		//Formatter formatter = new Formatter(sb);
+		//formatter.format(strLevel, mLevel);
+		String levelValue = null;
+		switch(level){
+		case 1:
+			levelValue = getString(R.string.str_level_low);
+			break;
+		case 2:
+			levelValue = getString(R.string.str_level_medium);
+			break;
+		case 3:
+			levelValue = getString(R.string.str_level_high);
+			break;
+		default:
+			levelValue = getString(R.string.str_level_low);
+			break;
+		}
+		
+		String sb = String.format(strLevel, levelValue);
+		UtilFuncs.logE(TAG, ">>>>>>>>>>>>> "+sb );
+		tv.setText(sb.toString());
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		return super.onOptionsItemSelected(item);
+	}
+	
     @Override
     protected void onResume() {
     	super.onResume();
@@ -114,17 +162,34 @@ public class JigdrawPuzzleMain extends Activity {
 		}
 	};
 	
-	private void startJetPlayer(){
-		mJet = JetPlayer.getJetPlayer();
-        mJet.loadJetFile(getResources().openRawResourceFd(R.raw.level1));
-        byte segmentId = 0;
-        // JET info: end game music, loop 4 times normal pitch
-        mJet.queueJetSegment(1, 0, -1, 0, 0, segmentId);
-
-        mJet.play();
+	private void prepareJetPlayer(){
+		new JetPlayerPrepareTask().execute(null);
+        //mJet.play();
 	}
 	
 	private void stopJetPlayer(){
 		mJet.pause();
+	}
+	
+	private class JetPlayerPrepareTask extends AsyncTask<String,Void,Void>{
+
+		@Override
+		protected Void doInBackground(String... params) {
+			synchronized (this) {
+				mJet = JetPlayer.getJetPlayer();
+		        mJet.loadJetFile(getResources().openRawResourceFd(R.raw.level1));
+		        byte segmentId = 0;
+		        // JET info: end game music, loop 4 times normal pitch
+		        mJet.queueJetSegment(1, 0, -1, 0, 0, segmentId);
+			}
+			return null;
+		}
+		
+		@Override
+		protected void onPostExecute(Void result) {
+			super.onPostExecute(result);
+			mJet.play();
+		}
+		
 	}
 }

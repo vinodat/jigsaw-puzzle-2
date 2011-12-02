@@ -100,6 +100,8 @@ public class JigdrawPuzzleMain extends Activity {
         mOrigBitmap = ((BitmapDrawable)dbmp).getBitmap();
         
         initView(mLevel);
+		//random disrupt.
+        mGameView.randomDisrupt();
     }
     
 	/**

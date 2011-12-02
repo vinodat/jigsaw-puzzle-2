@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello">Hello World, JigdrawPuzzleMain!</string>
+    <string name="app_name">拼图板</string>
+    <string name="str_time_consume"> %1$2s 秒</string>
+    
+        
+    <string name="str_pause">暂停</string>
+    <string name="str_share">分享</string>
+    <string name="str_level">级别: %1$2s</string>
+    
+    <string name="str_level_low">低</string>
+    <string name="str_level_medium">中</string>
+    <string name="str_level_high">高</string>
+</resources>

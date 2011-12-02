@@ -2,9 +2,14 @@
 <resources>
     <string name="hello">Hello World, JigdrawPuzzleMain!</string>
     <string name="app_name">JigdrawPuzzle</string>
-    <string name="str_time_consume">%d S</string>
+    <string name="str_time_consume"> %1$2s s</string>
     
         
     <string name="str_pause">pause</string>
     <string name="str_share">share</string>
+    <string name="str_level">level: %1$2s</string>
+    
+    <string name="str_level_low">low</string>
+    <string name="str_level_medium">medium</string>
+    <string name="str_level_high">high</string>
 </resources>

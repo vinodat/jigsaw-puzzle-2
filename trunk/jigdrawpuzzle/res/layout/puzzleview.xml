@@ -4,33 +4,39 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" >
-
+
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="80px"
         android:background="@color/color_text_bg"
         android:gravity="center" >
-
-        <Button
-            android:id="@+id/btn_pause"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/str_pause" />
-
-        <TextView
-            android:id="@+id/txt_view_timer"
-            android:layout_width="386dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.41"
-            android:gravity="center"
-            android:text="0 S"
-            android:textSize="20sp" />
 
         <Button
             android:id="@+id/button1"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="@string/str_share" />
+            android:layout_weight="1"
+            android:text="@string/str_share"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/textView_level"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/str_level"
+            android:textColor="@color/gray"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/txt_view_timer"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="0 S"
+            android:textColor="@color/color_text_artist"
+            android:textSize="25sp" />
 
     </LinearLayout>
 

@@ -22,4 +22,11 @@
     <string name="str_menu_main_setting_audioset">Audio Setting</string>
     <!-- menu string end -->
     <string name="str_origin_image_show">Origin Image</string>
+    
+    <!-- setting preferences string. -->
+    <string name="str_preferences_setting_level">Level Setting</string>
+    <string name="str_preferences_setting_audio">Music Setting</string>
+    
+    <!-- error toast string -->
+    <string name="str_image_error">Can\'t get this image, please choose another one.</string> 
 </resources>

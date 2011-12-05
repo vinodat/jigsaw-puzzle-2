@@ -4,6 +4,7 @@ import java.lang.ref.WeakReference;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -13,6 +14,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.view.Display;
 import android.view.KeyEvent;
@@ -28,6 +30,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.yqg.puzzle.utils.Constants;
 import com.yqg.puzzle.utils.PlayTimer;
 import com.yqg.puzzle.utils.UtilFuncs;
 import com.yqg.puzzle.utils.PlayTimer.TimerCallBack;
@@ -55,6 +58,7 @@ public class JigdrawPuzzleMain extends Activity {
 	private int mGameViewWidth = 0;
 	private int mGameViewHeight = 0;
 	private int mLevel = 2;
+	private boolean isMusicOn = true;
 	
 	private PlayTimer mTimer = new PlayTimer();
 	private Handler mHandler = new Handler(){
@@ -81,8 +85,11 @@ public class JigdrawPuzzleMain extends Activity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
         mTimer.setCallback(timerCallback);
-        //prepare bg music.
-        prepareJetPlayer();
+        initStateFromPreferencesSetting();
+        if(isMusicOn){
+        	//prepare bg music.
+            prepareJetPlayer();
+        }
         
         Display display = getWindowManager().getDefaultDisplay(); 
         mGameViewWidth = display.getWidth();
@@ -95,13 +102,24 @@ public class JigdrawPuzzleMain extends Activity {
         }
         mGameViewHeight = dheight - bannerHeight;
         getDefaultBitmap();
-                
-        initView(mLevel);
+        
+        initGame();
+    }
+    
+    private void initGame(){
+    	initView(mLevel);
 		//random disrupt.
         mGameView.randomDisrupt();
     }
 
-    /**
+    private void initStateFromPreferencesSetting() {
+    	SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());	
+    	String strLevel = preferences.getString(Constants.KEY_PREFER_LEVEL, "1");
+    	mLevel = Integer.parseInt(strLevel);
+    	isMusicOn = preferences.getBoolean(Constants.KEY_PREFER_AUDIO, true);
+	}
+
+	/**
      * get default bitmap.
      */
 	private void getDefaultBitmap() {
@@ -159,10 +177,13 @@ public class JigdrawPuzzleMain extends Activity {
 		case R.id.menu_check_image:
 			showOriginImage(true);
 			break;
-		case R.id.menu_setting_levelsetting:
+		case R.id.menu_setting:
+			Intent intent = new Intent();
+			intent.setClass(getApplicationContext(), PreferSettingActivity.class);
+			startActivityForResult(intent, REQUEST_CODE_SETTING);
 			break;
-		case R.id.menu_setting_oudiosetting:
-			break;
+		//case R.id.menu_setting_oudiosetting:
+		//	break;
 		case R.id.menu_save:
 			break;
 		default:
@@ -176,13 +197,15 @@ public class JigdrawPuzzleMain extends Activity {
 		super.onWindowFocusChanged(hasFocus);
 		if(hasFocus){
 			changeTimerState(true);
-			mJet.play();
+			playJetPlayer();
 		}else{
 			changeTimerState(false);
-			mJet.pause();
+			stopJetPlayer();
 		}
 	}
 	int REQUEST_CODE_CHOOSE_IMAGE = 110;
+	int REQUEST_CODE_SETTING = 111;
+	
 	private void chooseGameImage(){
 		
 		Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
@@ -200,11 +223,32 @@ public class JigdrawPuzzleMain extends Activity {
 			}else{
 				isNewImageGet = false;
 			}
+		}else if(requestCode == REQUEST_CODE_SETTING){
+			if(data != null){
+				boolean audioModified = data.getExtras().getBoolean(Constants.KEY_PREFERENCES_AUDIO_SETTING_MODIFIED);
+				if(audioModified){
+					initStateFromPreferencesSetting();
+					if(isMusicOn){
+						prepareJetPlayer();
+						playJetPlayer();
+					}else{
+						if(mJet != null){
+							mJet.pause();	
+							stopJetPlayer();
+						}
+					}
+				}
+				
+				boolean levelModified = data.getExtras().getBoolean(Constants.KEY_PREFERENCES_LEVEL_SETTING_MODIFIED);
+				if(levelModified){
+					initStateFromPreferencesSetting();
+					initGame();
+				}
+			}
 		}
 	}
 	
 	private void showOriginImage(boolean show){
-		UtilFuncs.logE(TAG,"1");
 		if(mImageLayout == null){
 			LayoutInflater inflater = getLayoutInflater();
 			mImageLayout = (RelativeLayout) inflater.inflate(R.layout.origin_image_viewlayout, null);
@@ -213,24 +257,19 @@ public class JigdrawPuzzleMain extends Activity {
 		}
 		RelativeLayout rlayout = (RelativeLayout) findViewById(R.id.puzzle_relative_view);
 		if(show){
-			UtilFuncs.logE(TAG,"2");
 			if(!isOrigImageShow){
-				UtilFuncs.logE(TAG,"21");
 				isOrigImageShow = true;
 				rlayout.addView(mImageLayout);
 				changeTimerState(false);
 			}
 		}else{
-			UtilFuncs.logE(TAG,"3");
 			if(isOrigImageShow){
-				UtilFuncs.logE(TAG,"31");
 				isOrigImageShow = false;
 				rlayout.removeView(mImageLayout);	
 				mImageLayout = null;
 				changeTimerState(true);
 			}
 		}
-		UtilFuncs.logE(TAG,"4");
 		rlayout.postInvalidate();
 	}
 	
@@ -332,12 +371,22 @@ public class JigdrawPuzzleMain extends Activity {
 	};
 	
 	private void prepareJetPlayer(){
-		new JetPlayerPrepareTask().execute(new String[]{});
+		if(mJet == null){
+			new JetPlayerPrepareTask().execute(new String[]{});
+		}
         //mJet.play();
 	}
 	
 	private void stopJetPlayer(){
-		mJet.pause();
+		if(mJet != null){
+			mJet.pause();	
+		}
+	}
+	
+	private void playJetPlayer(){
+		if(mJet != null){
+			mJet.play();
+		}
 	}
 	
 	private class JetPlayerPrepareTask extends AsyncTask<String,Void,Void>{
@@ -357,7 +406,7 @@ public class JigdrawPuzzleMain extends Activity {
 		@Override
 		protected void onPostExecute(Void result) {
 			super.onPostExecute(result);
-			mJet.play();
+			playJetPlayer();
 		}
 		
 	}

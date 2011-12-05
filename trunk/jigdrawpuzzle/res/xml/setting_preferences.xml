@@ -1,10 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
 
-<PreferenceScreen
-        xmlns:android="http://schemas.android.com/apk/res/android">
-    <PreferenceCategory android:summary="@string/str_preferences_setting_level" android:title="@string/str_preferences_setting_level">
-        <ListPreference />
+    <PreferenceCategory
+        android:key="prefer_level_categ"
+        android:summary="@string/str_preferences_setting_level"
+        android:title="@string/str_preferences_setting_level" >
+
+        <ListPreference
+            android:key="prefer_level"
+            android:summary="@string/str_menu_main_setting_levelset"
+            android:title="@string/str_menu_main_setting_levelset" 
+            android:entries="@array/entries_list_preferences"
+            android:entryValues="@array/entryvalues_list_preferences"
+            android:defaultValue="1"/>
     </PreferenceCategory>
-    <PreferenceCategory android:summary="@string/str_preferences_setting_audio" android:title="@string/str_preferences_setting_audio"></PreferenceCategory>
-        
+
+    <PreferenceCategory
+        android:key="prefer_audio_categ"
+        android:summary="@string/str_preferences_setting_audio"
+        android:title="@string/str_preferences_setting_audio" >
+
+        <CheckBoxPreference
+            android:key="prefer_audio"
+            android:summary="@string/str_menu_main_setting_audioset"
+            android:title="@string/str_menu_main_setting_audioset" />
+    </PreferenceCategory>
+
 </PreferenceScreen>

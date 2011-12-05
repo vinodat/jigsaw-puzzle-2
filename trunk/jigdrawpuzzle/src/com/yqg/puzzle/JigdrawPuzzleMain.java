@@ -1,7 +1,6 @@
 package com.yqg.puzzle;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.lang.ref.WeakReference;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -14,8 +13,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.provider.MediaStore;
-import android.provider.MediaStore.Images;
+import android.text.TextUtils;
 import android.view.Display;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -31,6 +29,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.yqg.puzzle.utils.PlayTimer;
+import com.yqg.puzzle.utils.UtilFuncs;
 import com.yqg.puzzle.utils.PlayTimer.TimerCallBack;
 import com.yqg.puzzle.view.PuzzleView;
 import com.yqg.puzzle.view.TileView;
@@ -82,7 +81,7 @@ public class JigdrawPuzzleMain extends Activity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
         mTimer.setCallback(timerCallback);
-        
+        //prepare bg music.
         prepareJetPlayer();
         
         Display display = getWindowManager().getDefaultDisplay(); 
@@ -95,14 +94,21 @@ public class JigdrawPuzzleMain extends Activity {
         	bannerHeight = 80;
         }
         mGameViewHeight = dheight - bannerHeight;
-        //get default bitmap
-        Drawable dbmp = getResources().getDrawable(R.drawable.test);
-        mOrigBitmap = ((BitmapDrawable)dbmp).getBitmap();
-        
+        getDefaultBitmap();
+                
         initView(mLevel);
 		//random disrupt.
         mGameView.randomDisrupt();
     }
+
+    /**
+     * get default bitmap.
+     */
+	private void getDefaultBitmap() {
+		//get default bitmap
+        Drawable dbmp = getResources().getDrawable(R.drawable.test);
+        mOrigBitmap = ((BitmapDrawable)dbmp).getBitmap();
+	}
     
 	/**
 	 * init the view .
@@ -121,7 +127,7 @@ public class JigdrawPuzzleMain extends Activity {
             mTxtView = (TextView) mPuzzleLayout.findViewById(R.id.txt_view_timer);
             mPuzzleLayout.addView(mGameView);
         }
-        
+        //init level view.
 		TextView tv = (TextView) findViewById(R.id.textView_level);
 		String strLevel = getString(R.string.str_level);
 		String levelValue = null;
@@ -198,6 +204,7 @@ public class JigdrawPuzzleMain extends Activity {
 	}
 	
 	private void showOriginImage(boolean show){
+		UtilFuncs.logE(TAG,"1");
 		if(mImageLayout == null){
 			LayoutInflater inflater = getLayoutInflater();
 			mImageLayout = (RelativeLayout) inflater.inflate(R.layout.origin_image_viewlayout, null);
@@ -205,19 +212,25 @@ public class JigdrawPuzzleMain extends Activity {
 			mOrigImg.setImageBitmap(mOrigBitmap);
 		}
 		RelativeLayout rlayout = (RelativeLayout) findViewById(R.id.puzzle_relative_view);
-		if(show ){
+		if(show){
+			UtilFuncs.logE(TAG,"2");
 			if(!isOrigImageShow){
+				UtilFuncs.logE(TAG,"21");
 				isOrigImageShow = true;
 				rlayout.addView(mImageLayout);
 				changeTimerState(false);
 			}
 		}else{
+			UtilFuncs.logE(TAG,"3");
 			if(isOrigImageShow){
+				UtilFuncs.logE(TAG,"31");
 				isOrigImageShow = false;
 				rlayout.removeView(mImageLayout);	
+				mImageLayout = null;
 				changeTimerState(true);
 			}
 		}
+		UtilFuncs.logE(TAG,"4");
 		rlayout.postInvalidate();
 	}
 	
@@ -252,7 +265,6 @@ public class JigdrawPuzzleMain extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.puzzle_main_menu, menu);
-		com.yqg.puzzle.utils.UtilFuncs.logE(TAG,">>>>>>>>>>>>>>> run");
 		return true;
 	}
 	
@@ -269,16 +281,22 @@ public class JigdrawPuzzleMain extends Activity {
     		Uri uri = mIntent.getData();
     		if(uri != null){
     			try {
-    				mOrigBitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
-				} catch (FileNotFoundException e) {
-					e.printStackTrace();
-				} catch (IOException e) {
-					e.printStackTrace();
+    				String path = UtilFuncs.getRealPathFromURI(uri,new WeakReference<Activity>(this));
+    				if(!TextUtils.isEmpty(path)){
+    					mOrigBitmap = UtilFuncs.decodeFile(path,mGameViewWidth*2,mGameViewHeight*2);
+    				}
+				} catch(Exception e){
+					UtilFuncs.logE(TAG,"error:"+e.getStackTrace());
+					UtilFuncs.showToast(this, R.string.str_image_error);
 				}
+    		}
+    		if(mOrigBitmap == null){
+    			getDefaultBitmap();
     		}
     		initView(mLevel);
     		//random disrupt.
             mGameView.randomDisrupt();
+            showOriginImage(false);
     	}
     	isNewImageGet = false;
     	changeTimerState(true);

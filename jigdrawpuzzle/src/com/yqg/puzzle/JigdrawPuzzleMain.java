@@ -186,6 +186,11 @@ public class JigdrawPuzzleMain extends Activity {
 		//	break;
 		case R.id.menu_save:
 			break;
+		case R.id.menu_ad:
+			Intent intentAd = new Intent();
+			intentAd.setClass(getApplicationContext(), AdActivity.class);
+			startActivity(intentAd);
+			break;
 		default:
 			return super.onOptionsItemSelected(item);
 		}

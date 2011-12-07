@@ -20,6 +20,7 @@
     <string name="str_menu_main_setting_levelset">Level Setting</string>
     <string name="str_menu_save">Archive</string>
     <string name="str_menu_main_setting_audioset">Audio Setting</string>
+    <string name="str_menu_ad">Donate</string>
     <!-- menu string end -->
     <string name="str_origin_image_show">Origin Image</string>
     

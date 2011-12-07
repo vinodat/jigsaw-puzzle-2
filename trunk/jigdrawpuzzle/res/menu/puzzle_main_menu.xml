@@ -22,4 +22,5 @@
         android:title="@string/str_menu_save"
         android:titleCondensed="@string/str_menu_save"></item>
 
+<item android:id="@+id/menu_ad" android:title="@string/str_menu_ad" android:titleCondensed="@string/str_menu_ad"></item>
 </menu>

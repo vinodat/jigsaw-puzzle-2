@@ -6,7 +6,7 @@
     
         
     <string name="str_pause">暂停</string>
-    <string name="str_share">分享</string>
+    <string name="str_share">推荐好友</string>
     <string name="str_level">难度: %1$2s</string>
     
     <string name="str_level_low">低</string>

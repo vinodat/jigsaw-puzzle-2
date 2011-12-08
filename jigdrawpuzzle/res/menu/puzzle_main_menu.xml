@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
-    <item
+    <item android:id="@+id/menu_share" android:title="@string/str_share" android:titleCondensed="@string/str_share"></item><item
         android:id="@+id/menu_choose"
         android:title="@string/str_menu_main_choose"
         android:titleCondensed="@string/str_menu_main_choose"></item>
@@ -23,4 +23,5 @@
         android:titleCondensed="@string/str_menu_save"></item>
 
 <item android:id="@+id/menu_ad" android:title="@string/str_menu_ad" android:titleCondensed="@string/str_menu_ad"></item>
+
 </menu>

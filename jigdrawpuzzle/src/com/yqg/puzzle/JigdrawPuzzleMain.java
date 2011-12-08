@@ -130,7 +130,7 @@ public class JigdrawPuzzleMain extends Activity {
      */
 	private void getDefaultBitmap() {
 		//get default bitmap
-        Drawable dbmp = getResources().getDrawable(R.drawable.test);
+        Drawable dbmp = getResources().getDrawable(R.drawable.game_pic);
         mOrigBitmap = ((BitmapDrawable)dbmp).getBitmap();
 	}
     

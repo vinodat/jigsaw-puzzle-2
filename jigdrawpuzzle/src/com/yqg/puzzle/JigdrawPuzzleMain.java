@@ -65,6 +65,7 @@ public class JigdrawPuzzleMain extends Activity {
 	private int mGameViewHeight = 0;
 	private int mLevel = 2;
 	private boolean isMusicOn = true;
+	private String mPath = "";
 	
 	private PlayTimer mTimer = new PlayTimer();
 	private Handler mHandler = new Handler(){
@@ -191,11 +192,17 @@ public class JigdrawPuzzleMain extends Activity {
 		//case R.id.menu_setting_oudiosetting:
 		//	break;
 		case R.id.menu_save:
+			saveGame();
 			break;
 		case R.id.menu_ad:
 			Intent intentAd = new Intent();
 			intentAd.setClass(getApplicationContext(), AdActivity.class);
 			startActivity(intentAd);
+		case R.id.menu_share:
+			Intent sendIntent = new Intent(Intent.ACTION_VIEW);         
+			sendIntent.setData(Uri.parse("sms:"));
+			sendIntent.putExtra("sms_body","this game is very good,download and play it with me .");
+			startActivity(sendIntent);
 			break;
 		default:
 			return super.onOptionsItemSelected(item);
@@ -203,6 +210,11 @@ public class JigdrawPuzzleMain extends Activity {
 		return true;
 	}
 	
+	private void saveGame() {
+		// TODO Auto-generated method stub
+		
+	}
+
 	@Override
 	public void onWindowFocusChanged(boolean hasFocus) {
 		super.onWindowFocusChanged(hasFocus);
@@ -368,9 +380,9 @@ public class JigdrawPuzzleMain extends Activity {
     		Uri uri = mIntent.getData();
     		if(uri != null){
     			try {
-    				String path = UtilFuncs.getRealPathFromURI(uri,new WeakReference<Activity>(this));
-    				if(!TextUtils.isEmpty(path)){
-    					mOrigBitmap = UtilFuncs.decodeFile(path,mGameViewWidth*2,mGameViewHeight*2);
+    				mPath = UtilFuncs.getRealPathFromURI(uri,new WeakReference<Activity>(this));
+    				if(!TextUtils.isEmpty(mPath)){
+    					mOrigBitmap = UtilFuncs.decodeFile(mPath,mGameViewWidth*2,mGameViewHeight*2);
     				}
 				} catch(Exception e){
 					UtilFuncs.logE(TAG,"error:"+e.getStackTrace());

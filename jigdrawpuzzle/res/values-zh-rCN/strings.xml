@@ -7,9 +7,32 @@
         
     <string name="str_pause">暂停</string>
     <string name="str_share">分享</string>
-    <string name="str_level">级别: %1$2s</string>
+    <string name="str_level">难度: %1$2s</string>
     
     <string name="str_level_low">低</string>
     <string name="str_level_medium">中</string>
     <string name="str_level_high">高</string>
+    
+    <string name="str_game_exit_check">退出游戏？</string>
+    
+    <string name="str_btn_yes">是</string>
+    <string name="str_btn_no">否</string>
+    
+    <!-- menu string start -->
+    <string name="str_menu_main_choose">选图</string>
+    <string name="str_menu_main_check_img">源图</string>
+    <string name="str_menu_main_setting">设置</string>
+    <string name="str_menu_main_setting_levelset">难度设置</string>
+    <string name="str_menu_save">存档</string>
+    <string name="str_menu_main_setting_audioset">音效设置</string>
+    <string name="str_menu_ad">捐赠</string>
+    <!-- menu string end -->
+    <string name="str_origin_image_show">完整图片</string>
+    
+    <!-- setting preferences string. -->
+    <string name="str_preferences_setting_level">难度设定</string>
+    <string name="str_preferences_setting_audio">音效设定</string>
+    
+    <!-- error toast string -->
+    <string name="str_image_error">该图片无法获取，请换一张图片。</string> 
 </resources>

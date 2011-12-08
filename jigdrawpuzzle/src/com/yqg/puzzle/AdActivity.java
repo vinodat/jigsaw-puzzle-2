@@ -12,7 +12,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.widget.LinearLayout;
 
-public class AdActivity extends Activity implements AdListener{
+public class AdActivity extends Activity {
 	private InterstitialAd interstitialAd;
 	private AdView adView;
 	
@@ -41,7 +41,7 @@ public class AdActivity extends Activity implements AdListener{
 
     public void onDestroy() {
       // Stop loading the ad.
-      interstitialAd.stopLoading();
+      //interstitialAd.stopLoading();
 
       super.onDestroy();
     }
@@ -54,31 +54,9 @@ public class AdActivity extends Activity implements AdListener{
         // For best performance, make sure you are not performing
         // processor-intensive or media-intensive operations while showing
         // interstitial ads.
-        interstitialAd.show();
+        //interstitialAd.show();
       }
     }
 
-	@Override
-	public void onDismissScreen(Ad arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onFailedToReceiveAd(Ad arg0, ErrorCode arg1) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onLeaveApplication(Ad arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onPresentScreen(Ad arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+	
 }

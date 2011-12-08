@@ -121,9 +121,9 @@ public class JigdrawPuzzleMain extends Activity {
 
     private void initStateFromPreferencesSetting() {
     	SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());	
-    	String strLevel = preferences.getString(Constants.KEY_PREFER_LEVEL, "1");
+    	String strLevel = preferences.getString(Constants.KEY_PREFER_LEVEL, "2");
     	mLevel = Integer.parseInt(strLevel);
-    	isMusicOn = preferences.getBoolean(Constants.KEY_PREFER_AUDIO, true);
+    	isMusicOn = preferences.getBoolean(Constants.KEY_PREFER_AUDIO, false);
 	}
 
 	/**

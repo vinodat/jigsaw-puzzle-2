@@ -34,6 +34,8 @@
     <string name="str_preferences_setting_level">Level Setting</string>
     <string name="str_preferences_setting_audio">Music Setting</string>
     
+    <string name="str_share_msg">A jigsaw puzzle games can be played on the phone, go and download it.
+http://jigsaw-puzzle-2.googlecode.com/files/jigdrawpuzzle.apk</string>
     <!-- error toast string -->
     <string name="str_image_error">Can\'t get this image, please choose another one.</string> 
 </resources>

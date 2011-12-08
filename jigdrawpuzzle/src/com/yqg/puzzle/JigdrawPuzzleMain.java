@@ -198,10 +198,11 @@ public class JigdrawPuzzleMain extends Activity {
 			Intent intentAd = new Intent();
 			intentAd.setClass(getApplicationContext(), AdActivity.class);
 			startActivity(intentAd);
+			break;
 		case R.id.menu_share:
 			Intent sendIntent = new Intent(Intent.ACTION_VIEW);         
 			sendIntent.setData(Uri.parse("sms:"));
-			sendIntent.putExtra("sms_body","this game is very good,download and play it with me .");
+			sendIntent.putExtra("sms_body",getString(R.string.str_share_msg));
 			startActivity(sendIntent);
 			break;
 		default:

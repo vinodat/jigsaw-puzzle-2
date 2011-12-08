@@ -34,6 +34,9 @@
     <string name="str_preferences_setting_level">难度设定</string>
     <string name="str_preferences_setting_audio">音效设定</string>
     
+    <string name="str_share_msg">还记得小时候玩的拼图板吗？可以再手机上玩了，快去下载吧。
+http://jigsaw-puzzle-2.googlecode.com/files/jigdrawpuzzle.apk</string>
     <!-- error toast string -->
     <string name="str_image_error">该图片无法获取，请换一张图片。</string> 
+    
 </resources>

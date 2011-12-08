@@ -12,6 +12,11 @@
     <string name="str_level_low">low</string>
     <string name="str_level_medium">medium</string>
     <string name="str_level_high">high</string>
+
+    <string name="str_game_exit_check">Do you want exit game?</string>
+    
+    <string name="str_btn_yes">Yes</string>
+    <string name="str_btn_no">No</string>
     
     <!-- menu string start -->
     <string name="str_menu_main_choose">Choose Image</string>

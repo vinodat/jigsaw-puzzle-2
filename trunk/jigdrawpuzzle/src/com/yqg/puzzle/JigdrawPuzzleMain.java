@@ -3,8 +3,12 @@ package com.yqg.puzzle;
 import java.lang.ref.WeakReference;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.DialogInterface.OnClickListener;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -43,6 +47,8 @@ public class JigdrawPuzzleMain extends Activity {
 	
 	private static final String PLAY_TIME = "play_time";
 	private static final int TIMER_MESSAGE = 1;
+	//dialogue id define.
+	private static final int DIALOGUE_EXIT_ID = 100;
 	
 	//private field
 	private PuzzleView mGameView = null;
@@ -290,16 +296,52 @@ public class JigdrawPuzzleMain extends Activity {
 	
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if(keyCode == KeyEvent.KEYCODE_BACK && isOrigImageShow){
+		if(isOrigImageShow){
+			return true;
+		}
+		if(keyCode == KeyEvent.KEYCODE_BACK){
+			//showDialog(DIALOGUE_EXIT_ID);
 			return true;
 		}
 		return super.onKeyDown(keyCode, event);
 	}
 	
 	@Override
+	protected Dialog onCreateDialog(int id) {
+		switch (id) {
+		case DIALOGUE_EXIT_ID:
+			return new AlertDialog.Builder(JigdrawPuzzleMain.this)
+					.setTitle(
+							R.string.str_game_exit_check)
+							.setPositiveButton(
+							R.string.str_btn_yes, new OnClickListener() {
+
+								@Override
+								public void onClick(DialogInterface dialog,
+										int which) {
+									finish();
+								}
+							}).setNegativeButton(R.string.str_btn_no,
+							new OnClickListener() {
+
+								@Override
+								public void onClick(DialogInterface dialog,
+										int which) {
+									dismissDialog(DIALOGUE_EXIT_ID);
+								}
+							}).create();
+		}
+		return super.onCreateDialog(id);
+	}
+
+	@Override
 	public boolean onKeyUp(int keyCode, KeyEvent event) {
-		if(keyCode == KeyEvent.KEYCODE_BACK && isOrigImageShow){
+		if(isOrigImageShow){
 			showOriginImage(false);
+			return true;
+		}
+		if(keyCode == KeyEvent.KEYCODE_BACK){
+			showDialog(DIALOGUE_EXIT_ID);
 			return true;
 		}
 		return super.onKeyUp(keyCode, event);

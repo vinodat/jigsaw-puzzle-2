@@ -13,7 +13,7 @@ import android.os.Bundle;
 import android.widget.LinearLayout;
 
 public class AdActivity extends Activity {
-	private InterstitialAd interstitialAd;
+	//private InterstitialAd interstitialAd;
 	private AdView adView;
 	
     public void onCreate(Bundle savedInstanceState) {
@@ -50,12 +50,12 @@ public class AdActivity extends Activity {
       // Be sure to check that it is an InterstitialAd that triggered this
       // callback. Also, if there are multiple InterstitialAds, make sure it
       // is the correct one.
-      if (ad == interstitialAd) {
+      //if (ad == interstitialAd) {
         // For best performance, make sure you are not performing
         // processor-intensive or media-intensive operations while showing
         // interstitial ads.
         //interstitialAd.show();
-      }
+      //}
     }
 
 	

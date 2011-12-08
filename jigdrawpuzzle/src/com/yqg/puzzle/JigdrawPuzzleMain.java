@@ -313,6 +313,7 @@ public class JigdrawPuzzleMain extends Activity {
 			return new AlertDialog.Builder(JigdrawPuzzleMain.this)
 					.setTitle(
 							R.string.str_game_exit_check)
+							.setMessage(R.string.str_game_exit_check)
 							.setPositiveButton(
 							R.string.str_btn_yes, new OnClickListener() {
 

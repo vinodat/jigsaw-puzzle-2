@@ -324,7 +324,7 @@ public class JigdrawPuzzleMain extends Activity {
 		case DIALOGUE_EXIT_ID:
 			return new AlertDialog.Builder(JigdrawPuzzleMain.this)
 					.setTitle(
-							R.string.str_game_exit_check)
+							R.string.str_game_exit_dialogue_title)
 							.setMessage(R.string.str_game_exit_check)
 							.setPositiveButton(
 							R.string.str_btn_yes, new OnClickListener() {

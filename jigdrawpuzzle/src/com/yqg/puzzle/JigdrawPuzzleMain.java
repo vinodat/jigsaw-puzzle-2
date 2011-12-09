@@ -189,8 +189,6 @@ public class JigdrawPuzzleMain extends Activity {
 			intent.setClass(getApplicationContext(), PreferSettingActivity.class);
 			startActivityForResult(intent, REQUEST_CODE_SETTING);
 			break;
-		//case R.id.menu_setting_oudiosetting:
-		//	break;
 		case R.id.menu_save:
 			saveGame();
 			break;
@@ -213,7 +211,6 @@ public class JigdrawPuzzleMain extends Activity {
 	
 	private void saveGame() {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override

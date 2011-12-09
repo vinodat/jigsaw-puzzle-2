@@ -12,7 +12,7 @@
             android:title="@string/str_menu_main_setting_levelset" 
             android:entries="@array/entries_list_preferences"
             android:entryValues="@array/entryvalues_list_preferences"
-            android:defaultValue="1"/>
+            android:defaultValue="2"/>
     </PreferenceCategory>
 
     <PreferenceCategory

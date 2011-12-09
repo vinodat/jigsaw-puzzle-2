@@ -4,6 +4,15 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     >
-    <LinearLayout android:layout_width="fill_parent" android:layout_height="fill_parent" android:id="@+id/imageslayout" 
-     android:orientation="vertical"/>
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="80px"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="@string/str_donate_title"
+        android:textColor="@color/white"
+        android:textSize="22sp" />
+
+    <LinearLayout android:layout_width="fill_parent" android:layout_height="fill_parent" android:id="@+id/imageslayout"  android:orientation="vertical"/>
 </LinearLayout>

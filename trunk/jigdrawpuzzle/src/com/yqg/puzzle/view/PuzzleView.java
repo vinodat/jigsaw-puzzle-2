@@ -147,6 +147,17 @@ public class PuzzleView extends TileView {
 			mTileWidth = (mScreenWidth - (mXTileCount + 1) * SPLIT_LINE_WIDTH) / mXTileCount;
 			mTileHeight = (mScreenHeight - (mYTileCount + 1) * SPLIT_LINE_WIDTH) / mYTileCount;
 			break;
+		case 4:
+			mLevel = 4;
+			mXTileCount = 6;
+			mYTileCount = 6;
+
+			mScreenWidth = width;
+			mScreenHeight = height;
+
+			mTileWidth = (mScreenWidth - (mXTileCount + 1) * SPLIT_LINE_WIDTH) / mXTileCount;
+			mTileHeight = (mScreenHeight - (mYTileCount + 1) * SPLIT_LINE_WIDTH) / mYTileCount;
+			break;
 		default:
 			break;
 		}
